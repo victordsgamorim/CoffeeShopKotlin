@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CoffeeShop - Kotlin</string>
+    <string name="coffee_shop_desc">Coffee Shop Image</string>
+</resources>
