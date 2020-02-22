@@ -23,6 +23,7 @@ class WebService {
             override fun onResponse(call: Call<T>, response: Response<T>) {
                 if (response.isSuccessful) {
                     onSuccess(response.body())
+                    
                 } else {
                     onFail("Error after trying to get info data!")
                 }
