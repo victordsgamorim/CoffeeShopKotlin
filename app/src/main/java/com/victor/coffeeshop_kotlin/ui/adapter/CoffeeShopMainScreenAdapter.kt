@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.coffeeshop_kotlin.R
 import com.victor.coffeeshop_kotlin.model.CoffeeShop
-import kotlinx.android.synthetic.main.coffeeshop_items_cardview.view.*
+import kotlinx.android.synthetic.main.cardview_items.view.*
 
 class CoffeeShopMainScreenAdapter(
     private val context: Context,
@@ -20,7 +20,7 @@ class CoffeeShopMainScreenAdapter(
         viewType: Int
     ): CoffeeShopMainScreenViewHolder {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.coffeeshop_items_cardview, parent, false)
+        val view = inflater.inflate(R.layout.cardview_items, parent, false)
         return CoffeeShopMainScreenViewHolder(
             view
         )

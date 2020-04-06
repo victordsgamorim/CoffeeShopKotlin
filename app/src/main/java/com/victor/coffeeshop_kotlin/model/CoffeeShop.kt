@@ -1,12 +1,6 @@
 package com.victor.coffeeshop_kotlin.model
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
 class CoffeeShop(
-    @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
     val addresses: List<String>,
