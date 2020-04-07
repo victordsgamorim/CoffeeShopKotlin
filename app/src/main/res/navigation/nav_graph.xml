@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/cofeeShopListFragment">
+    app:startDestination="@id/coffeeShopListFragment">
     <fragment
-        android:id="@+id/cofeeShopListFragment"
+        android:id="@+id/coffeeShopListFragment"
         android:name="com.victor.coffeeshop_kotlin.ui.main.CoffeeShopListFragment"
-        android:label="CofeeShopListFragment" />
+        android:label="CoffeeShopListFragment" />
 </navigation>

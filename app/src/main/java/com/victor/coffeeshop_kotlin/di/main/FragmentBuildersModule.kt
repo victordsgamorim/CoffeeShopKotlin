@@ -8,5 +8,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun contribuiteCoffeeShopList(): CoffeeShopListFragment
+    abstract fun contributeCoffeeShopList(): CoffeeShopListFragment
+
 }
