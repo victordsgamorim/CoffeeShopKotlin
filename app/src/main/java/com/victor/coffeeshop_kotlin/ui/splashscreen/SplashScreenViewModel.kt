@@ -1,46 +1,45 @@
 package com.victor.coffeeshop_kotlin.ui.splashscreen
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.Transformations.*
-import androidx.lifecycle.ViewModel
+import com.victor.coffeeshop_kotlin.model.dto.GooglePlaceDto
 import com.victor.coffeeshop_kotlin.repository.SplashScreenRepository
+import com.victor.coffeeshop_kotlin.ui.BaseViewModel
 import com.victor.coffeeshop_kotlin.ui.DataState
 import com.victor.coffeeshop_kotlin.ui.splashscreen.state.SplashScreenStateEvent
-import com.victor.coffeeshop_kotlin.ui.splashscreen.state.SplashScreenStateEvent.*
 import com.victor.coffeeshop_kotlin.ui.splashscreen.state.SplashScreenViewState
-import com.victor.coffeeshop_kotlin.util.AbsentLiveData
 import javax.inject.Inject
 
-class SplashScreenViewModel
-@Inject constructor(
-    private val repository: SplashScreenRepository
-) : ViewModel() {
+class SplashScreenViewModel @Inject constructor(private val repository: SplashScreenRepository) :
+    BaseViewModel<SplashScreenStateEvent, SplashScreenViewState>() {
 
-    private val _stateEvent = MutableLiveData<SplashScreenStateEvent>()
-
-    private val _viewState = MutableLiveData<SplashScreenViewState>()
-    val viewState: LiveData<SplashScreenViewState>
-        get() = _viewState
-
-    val dataState: LiveData<DataState<SplashScreenViewState>> = switchMap(_stateEvent) { state ->
-        state?.let {
-            handleStateEvent(state)
-        }
+    override fun initViewState(): SplashScreenViewState {
+        return SplashScreenViewState()
     }
 
-    private fun handleStateEvent(state: SplashScreenStateEvent): LiveData<DataState<SplashScreenViewState>> {
+    override fun handleStateEvent(state: SplashScreenStateEvent): LiveData<DataState<SplashScreenViewState>> {
         return when (state) {
-            is LaunchCoffeeShopListEvent -> {
+            is SplashScreenStateEvent.LaunchCoffeeShopListEvent -> {
                 repository.attemptToLoadPlacesFromCurrentLocation()
             }
         }
     }
 
-    fun setStateEvent(event: SplashScreenStateEvent) {
-        _stateEvent.value = event
+    fun setGooglePlaceViewState(googlePlaces: GooglePlaceDto) {
+        val update = getCurrentViewState()
+
+        if (googlePlaces == update.result) return
+
+        update.result = googlePlaces
+        _viewState.value = update
     }
 
+    fun cancelJob() {
+        repository.cancelJob()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        cancelJob()
+    }
 
 }

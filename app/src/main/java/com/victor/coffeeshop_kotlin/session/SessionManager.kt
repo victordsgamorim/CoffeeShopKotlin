@@ -31,8 +31,9 @@ class SessionManager @Inject constructor(private val application: Application) {
     }
 
     private fun loadCurrentLocation(): LatLng {
-        val latlng = LatLng(53.3496055, -6.2601481)
-        return latlng
+
+        /**This LatLng is currently only for test*/
+        return LatLng(53.3496055, -6.2601481)
     }
 
 

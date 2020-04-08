@@ -23,4 +23,9 @@ class MainActivity : BaseActivity() {
 
     }
 
+    override fun loadProgressBar(load: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+
 }
