@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.victor.coffeeshop_kotlin.network.service.OpenApiService
+import com.victor.coffeeshop_kotlin.session.SessionManager
 import com.victor.coffeeshop_kotlin.util.LiveDataCallAdapterFactory
 import com.victor.coffeeshop_kotlin.util.RETROFIT_BASE_URL
 import dagger.Module
@@ -51,6 +52,12 @@ class AppModule {
     @Provides
     fun provideTaskLocation(client: FusedLocationProviderClient): Task<Location> {
         return client.lastLocation
+    }
+
+    @Singleton
+    @Provides
+    fun provideSessionManager(application: Application): SessionManager {
+        return SessionManager(application)
     }
 
 }

@@ -16,4 +16,8 @@ class GooglePlaceDto(
     @SerializedName("status")
     @Expose
     val status: String? = null
-)
+){
+    override fun toString(): String {
+        return "GooglePlaceDto(error_message=$error_message, results=$results, status=$status)"
+    }
+}
