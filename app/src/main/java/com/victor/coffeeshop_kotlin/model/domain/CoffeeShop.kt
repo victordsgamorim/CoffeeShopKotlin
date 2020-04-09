@@ -1,10 +1,14 @@
 package com.victor.coffeeshop_kotlin.model.domain
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Entity
 class CoffeeShop(
 
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     @Expose
     val id: String,
@@ -40,7 +44,7 @@ class CoffeeShop(
     @SerializedName("vicinity")
     @Expose
     val address: String
-){
+) {
     override fun toString(): String {
         return "CoffeeShop(id='$id', place_id='$place_id', geometry=$geometry, name='$name', opening_hours=$opening_hours, photos=$photos, price_level=$price_level, rating=$rating, address='$address')"
     }

@@ -57,7 +57,7 @@ class SessionManager @Inject constructor(
     }
 
     private suspend fun checkConnectivity() {
-        connection.checkConnectivity(
+        connection.checkNetworkStatus(
             onAvailable = { _, connection ->
                 onCompletedJob(connection)
             }, onLost = { _, connection ->

@@ -2,14 +2,20 @@ package com.victor.coffeeshop_kotlin.di
 
 import android.app.Application
 import android.location.Location
+import androidx.room.Room
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.victor.coffeeshop_kotlin.network.service.OpenApiService
+import com.victor.coffeeshop_kotlin.persistence.AppDatabase
+import com.victor.coffeeshop_kotlin.persistence.dao.AddressDao
+import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
+import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeShopDao
 import com.victor.coffeeshop_kotlin.session.NetworkStatus
 import com.victor.coffeeshop_kotlin.session.SessionManager
+import com.victor.coffeeshop_kotlin.util.COFFEE_SHOP_PLACES_DATABASE_NAME
 import com.victor.coffeeshop_kotlin.util.LiveDataCallAdapterFactory
 import com.victor.coffeeshop_kotlin.util.RETROFIT_BASE_URL
 import dagger.Module
@@ -44,6 +50,33 @@ class AppModule {
         return retrofit.create(OpenApiService::class.java)
     }
 
+    /**provides the creation of database*/
+    @Singleton
+    @Provides
+    fun provideDatabaseInstance(application: Application): AppDatabase {
+        return Room.databaseBuilder(
+            application, AppDatabase::class.java, COFFEE_SHOP_PLACES_DATABASE_NAME
+        ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCoffeeShopDao(database: AppDatabase): CoffeeShopDao {
+        return database.getCoffeeShopDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCoffeeDao(database: AppDatabase): CoffeeDao {
+        return database.getCoffeeDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideAddressDao(database: AppDatabase): AddressDao {
+        return database.getAddressDao()
+    }
+
     /**provides de location of the user*/
     @Singleton
     @Provides
@@ -62,7 +95,6 @@ class AppModule {
     @Singleton
     @Provides
     fun provideSessionManager(
-        application: Application,
         connection: NetworkStatus
     ): SessionManager {
         return SessionManager(connection)

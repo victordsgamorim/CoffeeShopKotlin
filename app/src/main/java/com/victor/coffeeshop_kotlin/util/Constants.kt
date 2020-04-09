@@ -3,6 +3,15 @@ package com.victor.coffeeshop_kotlin.util
 const val RETROFIT_BASE_URL = "https://maps.googleapis.com/maps/api/"
 const val PLACE_API_GET_TEST =
     "place/nearbysearch/json?location=53.3496055,-6.2601481&radius=50&types=cafe&name=coffeeshop&key=AIzaSyDyJqQzhSEuEiPk3A1jWBTJ4m9aaExb_k8"
+const val COFFEE_SHOP_PLACES_DATABASE_NAME = "coffee_shop_db"
+
+object PlaceParameters {
+    const val PLACE_RADIUS = 50f
+    const val PLACE_TYPE = "cafe"
+    const val PLACE_NAME = "coffeeshop"
+    const val PLACE_CREDENTIAL_KEY = " AIzaSyDyJqQzhSEuEiPk3A1jWBTJ4m9aaExb_k8 "
+}
+
 
 object ErrorMessage {
 

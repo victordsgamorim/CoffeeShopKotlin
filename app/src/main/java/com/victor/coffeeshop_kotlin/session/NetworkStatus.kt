@@ -8,7 +8,7 @@ import android.os.Build
 
 class NetworkStatus(private val application: Application) {
 
-    fun checkConnectivity(
+    fun checkNetworkStatus(
         onAvailable: (Network?, Boolean) -> Unit,
         onLost: (Network?, Boolean) -> Unit
     ) {
