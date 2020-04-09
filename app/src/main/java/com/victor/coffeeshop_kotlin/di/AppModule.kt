@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.victor.coffeeshop_kotlin.network.service.OpenApiService
+import com.victor.coffeeshop_kotlin.session.NetworkStatus
 import com.victor.coffeeshop_kotlin.session.SessionManager
 import com.victor.coffeeshop_kotlin.util.LiveDataCallAdapterFactory
 import com.victor.coffeeshop_kotlin.util.RETROFIT_BASE_URL
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
+    /**provides the connection to API*/
     @Singleton
     @Provides
     fun provideGson(): Gson {
@@ -42,6 +44,7 @@ class AppModule {
         return retrofit.create(OpenApiService::class.java)
     }
 
+    /**provides de location of the user*/
     @Singleton
     @Provides
     fun providesFusedLocationProviderClient(application: Application): FusedLocationProviderClient {
@@ -54,10 +57,22 @@ class AppModule {
         return client.lastLocation
     }
 
+
+    /**provides de session manager */
     @Singleton
     @Provides
-    fun provideSessionManager(application: Application): SessionManager {
-        return SessionManager(application)
+    fun provideSessionManager(
+        application: Application,
+        connection: NetworkStatus
+    ): SessionManager {
+        return SessionManager(connection)
+    }
+
+    /**provides de connection of internet */
+    @Singleton
+    @Provides
+    fun provideOnConnection(application: Application): NetworkStatus {
+        return NetworkStatus(application)
     }
 
 }

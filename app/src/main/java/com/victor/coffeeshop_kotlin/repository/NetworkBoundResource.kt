@@ -5,16 +5,13 @@ import androidx.lifecycle.MediatorLiveData
 import com.victor.coffeeshop_kotlin.ui.DataState
 import com.victor.coffeeshop_kotlin.ui.Response
 import com.victor.coffeeshop_kotlin.ui.ResponseType
-import com.victor.coffeeshop_kotlin.util.ApiEmptyResponse
-import com.victor.coffeeshop_kotlin.util.ApiErrorResponse
-import com.victor.coffeeshop_kotlin.util.ApiSuccessResponse
-import com.victor.coffeeshop_kotlin.util.GenericApiResponse
+import com.victor.coffeeshop_kotlin.util.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
 abstract class NetworkBoundResource<Response, ViewState>
-    (private val isNetworkAvailable: Boolean) {
+    (private val isNetworkAvailable: Boolean) : CoroutineJobInitialization {
 
     private val result = MediatorLiveData<DataState<ViewState>>()
     private lateinit var coroutineScope: CoroutineScope
@@ -24,7 +21,7 @@ abstract class NetworkBoundResource<Response, ViewState>
 
     init {
 
-        setJob(initJob())
+        setJob(initCoroutineJob())
         setValue(DataState.loading(true))
 
         if (isNetworkAvailable) {
@@ -113,7 +110,7 @@ abstract class NetworkBoundResource<Response, ViewState>
         result.value = dataState
     }
 
-    private fun initJob(): Job {
+    override fun initCoroutineJob(): Job {
         job = Job()
         job.invokeOnCompletion { throwable ->
             if (job.isCancelled) {
@@ -126,7 +123,6 @@ abstract class NetworkBoundResource<Response, ViewState>
         coroutineScope = CoroutineScope(IO + job)
         return job
     }
-
 
     abstract suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Response>)
     abstract fun call(): LiveData<GenericApiResponse<Response>>

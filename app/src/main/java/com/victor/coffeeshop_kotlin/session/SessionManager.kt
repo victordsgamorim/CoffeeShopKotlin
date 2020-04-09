@@ -1,20 +1,19 @@
 package com.victor.coffeeshop_kotlin.session
 
-import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.android.gms.maps.model.LatLng
+import com.victor.coffeeshop_kotlin.util.CoroutineJobInitialization
 import com.victor.coffeeshop_kotlin.util.ErrorMessage
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import javax.inject.Inject
 
 
-class SessionManager @Inject constructor(private val application: Application) {
+class SessionManager @Inject constructor(
+    private val connection: NetworkStatus
+) : CoroutineJobInitialization {
 
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var job: CompletableJob
@@ -22,7 +21,7 @@ class SessionManager @Inject constructor(private val application: Application) {
     private var isConnectionAvailable = false
 
     init {
-        initCoroutine()
+        initCoroutineJob()
     }
 
     fun currentLocationString(): String {
@@ -57,8 +56,26 @@ class SessionManager @Inject constructor(private val application: Application) {
         return isConnectionAvailable
     }
 
+    private suspend fun checkConnectivity() {
+        connection.checkConnectivity(
+            onAvailable = { _, connection ->
+                onCompletedJob(connection)
+            }, onLost = { _, connection ->
+                onCompletedJob(connection)
+            })
+    }
 
-    private fun initCoroutine(): Job {
+
+    private fun onCompletedJob(isConnectionAvailable: Boolean) {
+        job.complete()
+        this.isConnectionAvailable = isConnectionAvailable
+    }
+
+    private fun onCancelledJob(message: String?) {
+        job.cancel(CancellationException(message))
+    }
+
+    override fun initCoroutineJob(): Job {
         job = Job()
         job.invokeOnCompletion { throwable ->
             if (job.isCancelled) {
@@ -70,40 +87,6 @@ class SessionManager @Inject constructor(private val application: Application) {
 
         coroutineScope = CoroutineScope(IO + job)
         return job
-    }
-
-    private suspend fun checkConnectivity() {
-
-        try {
-            val cm =
-                application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                cm.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
-
-
-                    override fun onAvailable(network: Network?) {
-                        onCompletedJob(true)
-                    }
-
-                    override fun onLost(network: Network?) {
-                        onCompletedJob(false)
-                    }
-                })
-            }
-
-        } catch (e: Exception) {
-            onCancelledJob(e.message)
-        }
-    }
-
-    private fun onCompletedJob(isConnectionAvailable: Boolean) {
-        job.complete()
-        this.isConnectionAvailable = isConnectionAvailable
-    }
-
-    private fun onCancelledJob(message: String?) {
-        job.cancel(CancellationException(message))
     }
 
 
