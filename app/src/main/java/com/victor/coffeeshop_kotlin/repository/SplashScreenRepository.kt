@@ -69,8 +69,6 @@ class SplashScreenRepository @Inject constructor(
                 cancelJob()
                 repositoryJob = job
             }
-
-
         }.asLiveData
     }
 
