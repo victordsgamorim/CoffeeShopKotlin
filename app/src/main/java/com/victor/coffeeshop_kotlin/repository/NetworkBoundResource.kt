@@ -11,7 +11,10 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
 abstract class NetworkBoundResource<Response, ViewState>
-    (private val isNetworkAvailable: Boolean) : CoroutineJobInitialization {
+    (
+    private val isNetworkAvailable: Boolean,
+    private val isNetworkRequested: Boolean
+) : CoroutineJobInitialization {
 
     private val result = MediatorLiveData<DataState<ViewState>>()
     private lateinit var coroutineScope: CoroutineScope
@@ -22,28 +25,40 @@ abstract class NetworkBoundResource<Response, ViewState>
     init {
 
         setJob(initCoroutineJob())
+
         setValue(DataState.loading(true))
 
-        if (isNetworkAvailable) {
-
+        if (isNetworkRequested) {
+            if (isNetworkAvailable) {
+                loadApiData()
+            } else {
+                onErrorReturn("Network is not available", useToast = true)
+            }
+        } else {
             coroutineScope.launch {
-                delay(0)
+                loadCachedData()
+            }
+        }
 
-                withContext(Main) {
-                    val call = call()
-                    result.addSource(call) { response ->
-                        result.removeSource(call)
+    }
 
-                        coroutineScope.launch {
-                            handleApiResponse(response)
-                        }
+    private fun loadApiData() {
+        coroutineScope.launch {
+            delay(0)
+
+            withContext(Main) {
+                val call = call()
+                result.addSource(call) { response ->
+                    result.removeSource(call)
+
+                    coroutineScope.launch {
+                        handleApiResponse(response)
                     }
                 }
             }
-        } else {
-            onErrorReturn("Network is not available", useToast = true)
         }
     }
+
 
     private suspend fun handleApiResponse(response: GenericApiResponse<Response>) {
         when (response) {
@@ -127,5 +142,6 @@ abstract class NetworkBoundResource<Response, ViewState>
     abstract suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Response>)
     abstract fun call(): LiveData<GenericApiResponse<Response>>
     abstract fun setJob(job: Job)
+    abstract suspend fun loadCachedData()
 
 }

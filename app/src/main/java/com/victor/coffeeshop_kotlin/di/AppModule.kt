@@ -1,6 +1,8 @@
 package com.victor.coffeeshop_kotlin.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.location.Location
 import androidx.room.Room
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -18,6 +20,7 @@ import com.victor.coffeeshop_kotlin.session.SessionManager
 import com.victor.coffeeshop_kotlin.util.COFFEE_SHOP_PLACES_DATABASE_NAME
 import com.victor.coffeeshop_kotlin.util.LiveDataCallAdapterFactory
 import com.victor.coffeeshop_kotlin.util.RETROFIT_BASE_URL
+import com.victor.coffeeshop_kotlin.util.SHARED_PREFERENCES_NAME
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -90,6 +93,19 @@ class AppModule {
         return client.lastLocation
     }
 
+    /**provides shared preferes*/
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(application: Application): SharedPreferences {
+        return application.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferencesEditor(pref: SharedPreferences): SharedPreferences.Editor {
+        return pref.edit()
+    }
+
 
     /**provides de session manager */
     @Singleton
@@ -106,5 +122,6 @@ class AppModule {
     fun provideOnConnection(application: Application): NetworkStatus {
         return NetworkStatus(application)
     }
+
 
 }

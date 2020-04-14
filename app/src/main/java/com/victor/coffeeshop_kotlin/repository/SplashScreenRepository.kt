@@ -1,5 +1,6 @@
 package com.victor.coffeeshop_kotlin.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.victor.coffeeshop_kotlin.model.domain.Address
 import com.victor.coffeeshop_kotlin.model.domain.Coffee
@@ -19,10 +20,12 @@ import com.victor.coffeeshop_kotlin.util.PlaceParameters.PLACE_CREDENTIAL_KEY
 import com.victor.coffeeshop_kotlin.util.PlaceParameters.PLACE_NAME
 import com.victor.coffeeshop_kotlin.util.PlaceParameters.PLACE_RADIUS
 import com.victor.coffeeshop_kotlin.util.PlaceParameters.PLACE_TYPE
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
-import java.lang.IllegalArgumentException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SplashScreenRepository @Inject constructor(
@@ -37,7 +40,10 @@ class SplashScreenRepository @Inject constructor(
 
     fun attemptToLoadPlacesFromCurrentLocation(): LiveData<DataState<SplashScreenViewState>> {
         return object :
-            NetworkBoundResource<GooglePlaceDto, SplashScreenViewState>(sessionManager.isNetworkAvailable()) {
+            NetworkBoundResource<GooglePlaceDto, SplashScreenViewState>(
+                sessionManager.isNetworkAvailable(),
+                true
+            ) {
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<GooglePlaceDto>) {
 
                 val api = response.body
@@ -68,6 +74,10 @@ class SplashScreenRepository @Inject constructor(
             override fun setJob(job: Job) {
                 cancelJob()
                 repositoryJob = job
+            }
+
+            override suspend fun loadCachedData() {
+                //do not do anything.
             }
         }.asLiveData
     }

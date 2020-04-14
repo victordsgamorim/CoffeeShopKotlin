@@ -19,8 +19,12 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        initViewModel()
 
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
     }
 
     override fun loadProgressBar(load: Boolean) {

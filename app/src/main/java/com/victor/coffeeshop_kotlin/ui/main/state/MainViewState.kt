@@ -1,5 +1,6 @@
 package com.victor.coffeeshop_kotlin.ui.main.state
 
-class MainViewState {
+import com.victor.coffeeshop_kotlin.model.domain.Coffee
 
-}
+class MainViewState(var coffeeShop: List<Coffee>? = null)
+
