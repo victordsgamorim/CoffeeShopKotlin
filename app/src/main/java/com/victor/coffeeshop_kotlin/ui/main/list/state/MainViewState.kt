@@ -1,4 +1,4 @@
-package com.victor.coffeeshop_kotlin.ui.main.state
+package com.victor.coffeeshop_kotlin.ui.main.list.state
 
 import com.victor.coffeeshop_kotlin.model.domain.Coffee
 

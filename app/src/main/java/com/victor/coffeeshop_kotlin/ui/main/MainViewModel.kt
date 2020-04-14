@@ -5,9 +5,9 @@ import com.victor.coffeeshop_kotlin.model.domain.Coffee
 import com.victor.coffeeshop_kotlin.repository.MainRepository
 import com.victor.coffeeshop_kotlin.ui.BaseViewModel
 import com.victor.coffeeshop_kotlin.ui.DataState
-import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent
-import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent.LoadCoffeeShopDatabase
-import com.victor.coffeeshop_kotlin.ui.main.state.MainViewState
+import com.victor.coffeeshop_kotlin.ui.main.list.state.MainStateEvent
+import com.victor.coffeeshop_kotlin.ui.main.list.state.MainStateEvent.LoadCoffeeShopDatabase
+import com.victor.coffeeshop_kotlin.ui.main.list.state.MainViewState
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(

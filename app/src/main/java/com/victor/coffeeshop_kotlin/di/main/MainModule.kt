@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
 import com.victor.coffeeshop_kotlin.repository.MainRepository
 import com.victor.coffeeshop_kotlin.session.SessionManager
-import com.victor.coffeeshop_kotlin.ui.main.recyclerview.adapter.CoffeeShopListAdapter
+import com.victor.coffeeshop_kotlin.ui.main.list.recyclerview.adapter.CoffeeShopListAdapter
 import dagger.Module
 import dagger.Provides
 

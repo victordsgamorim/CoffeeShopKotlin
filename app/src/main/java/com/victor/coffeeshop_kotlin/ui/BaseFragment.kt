@@ -1,9 +1,13 @@
 package com.victor.coffeeshop_kotlin.ui
 
 import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.ViewModel
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.victor.coffeeshop_kotlin.NavGraphDirections
+import com.victor.coffeeshop_kotlin.R
 import com.victor.coffeeshop_kotlin.ui.main.MainViewModel
 import com.victor.coffeeshop_kotlin.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
@@ -16,9 +20,29 @@ abstract class BaseFragment : DaggerFragment() {
 
     lateinit var viewModel: MainViewModel
 
+    private val controller by lazy {
+        findNavController()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_fav, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_favorite_item -> {
+                val direction =
+                    NavGraphDirections.actionGlobalCoffeeShopFavFragment()
+                controller.navigate(direction)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 }

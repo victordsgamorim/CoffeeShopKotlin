@@ -4,6 +4,10 @@
     app:startDestination="@id/coffeeShopListFragment">
     <fragment
         android:id="@+id/coffeeShopListFragment"
-        android:name="com.victor.coffeeshop_kotlin.ui.main.CoffeeShopListFragment"
+        android:name="com.victor.coffeeshop_kotlin.ui.main.list.CoffeeShopListFragment"
         android:label="CoffeeShopListFragment" />
+    <fragment
+        android:id="@+id/coffeeShopFavFragment"
+        android:name="com.victor.coffeeshop_kotlin.ui.main.favorite.CoffeeShopFavFragment"
+        android:label="CoffeeShopFavFragment" /><action android:id="@+id/action_global_coffeeShopFavFragment" app:destination="@id/coffeeShopFavFragment"/>
 </navigation>

@@ -1,4 +1,4 @@
-package com.victor.coffeeshop_kotlin.ui.main
+package com.victor.coffeeshop_kotlin.ui.main.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.victor.coffeeshop_kotlin.R
 import com.victor.coffeeshop_kotlin.ui.BaseFragment
-import com.victor.coffeeshop_kotlin.ui.main.recyclerview.adapter.CoffeeShopListAdapter
-import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent
+import com.victor.coffeeshop_kotlin.ui.main.list.recyclerview.adapter.CoffeeShopListAdapter
+import com.victor.coffeeshop_kotlin.ui.main.list.state.MainStateEvent
 import kotlinx.android.synthetic.main.fragment_coffee_shop_list.*
 import javax.inject.Inject
 
@@ -20,6 +20,7 @@ class CoffeeShopListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loadCoffeesShopDatabase()
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -65,4 +66,5 @@ class CoffeeShopListFragment : BaseFragment() {
         super.onDestroyView()
         viewModel.cancelJob()
     }
+
 }

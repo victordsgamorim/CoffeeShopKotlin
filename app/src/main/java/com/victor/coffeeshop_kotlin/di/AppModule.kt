@@ -123,5 +123,7 @@ class AppModule {
         return NetworkStatus(application)
     }
 
+    /**provides glide*/
+
 
 }
