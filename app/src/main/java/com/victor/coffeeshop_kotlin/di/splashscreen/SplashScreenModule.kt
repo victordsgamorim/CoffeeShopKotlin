@@ -1,5 +1,6 @@
 package com.victor.coffeeshop_kotlin.di.splashscreen
 
+import android.content.SharedPreferences
 import com.victor.coffeeshop_kotlin.network.service.OpenApiService
 import com.victor.coffeeshop_kotlin.persistence.dao.AddressDao
 import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
@@ -19,8 +20,18 @@ class SplashScreenModule {
         sessionManager: SessionManager,
         coffeShopDao: CoffeeShopDao,
         coffeeDao: CoffeeDao,
-        addressDao: AddressDao
+        addressDao: AddressDao,
+        pref: SharedPreferences,
+        prefEditor: SharedPreferences.Editor
     ): SplashScreenRepository {
-        return SplashScreenRepository(service, sessionManager, coffeShopDao, coffeeDao, addressDao)
+        return SplashScreenRepository(
+            service,
+            sessionManager,
+            coffeShopDao,
+            coffeeDao,
+            addressDao,
+            pref,
+            prefEditor
+        )
     }
 }

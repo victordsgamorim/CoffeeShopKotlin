@@ -1,27 +1,40 @@
 package com.victor.coffeeshop_kotlin.repository
 
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.victor.coffeeshop_kotlin.model.dto.GooglePlaceDto
 import com.victor.coffeeshop_kotlin.network.service.OpenApiService
 import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
+import com.victor.coffeeshop_kotlin.session.SessionManager
 import com.victor.coffeeshop_kotlin.ui.DataState
 import com.victor.coffeeshop_kotlin.ui.main.MainViewModel
 import com.victor.coffeeshop_kotlin.ui.main.state.MainViewState
 import com.victor.coffeeshop_kotlin.ui.splashscreen.state.SplashScreenViewState
 import com.victor.coffeeshop_kotlin.util.AbsentLiveData
 import com.victor.coffeeshop_kotlin.util.ApiSuccessResponse
+import com.victor.coffeeshop_kotlin.util.CURRENT_LOCATION_SHARED_PREF_KEY
 import com.victor.coffeeshop_kotlin.util.GenericApiResponse
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MainRepository @Inject constructor(private val coffeeDao: CoffeeDao) {
+class MainRepository @Inject constructor(
+    private val coffeeDao: CoffeeDao,
+    private val sessionManager: SessionManager,
+    private val pref: SharedPreferences
+) {
 
     private var repositoryJob: Job? = null
 
     fun loadCoffeeShopDataBase(): LiveData<DataState<MainViewState>> {
+
+        return loadCoffeeShopFromDatabase()
+    }
+
+    private fun loadCoffeeShopFromDatabase(): LiveData<DataState<MainViewState>> {
         return object : NetworkBoundResource<Void, MainViewState>(
             false,
             false

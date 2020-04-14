@@ -60,4 +60,9 @@ class CoffeeShopListFragment : BaseFragment() {
     private fun loadCoffeesShopDatabase() {
         viewModel.setStateEvent(MainStateEvent.LoadCoffeeShopDatabase)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.cancelJob()
+    }
 }

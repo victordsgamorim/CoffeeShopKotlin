@@ -44,20 +44,19 @@ class SplashScreenActivity : BaseActivity() {
                 data.data?.let { event ->
                     event.getContentIfNotHandled()?.let { viewState ->
 
-                        val googleplaces =
-                            viewState.result?.let { it }
-                                ?: throw IllegalArgumentException("ViewState is empty")
+                        if (!viewState.sharedPrefStatus) {
+                            val googleplaces =
+                                viewState.result?.let { it }
+                                    ?: throw IllegalArgumentException("ViewState is empty")
 
-                        viewModel.setGooglePlaceViewState(googleplaces)
-                        Log.i("onCreate", googleplaces.toString())
+                            viewModel.setGooglePlaceViewState(googleplaces)
+                            Log.i("onCreate", googleplaces.toString())
+                        }
                     }
                 }
             }
         })
 
-        viewModel.viewState.observe(this, Observer { viewState ->
-            viewState.result
-        })
     }
 
     private fun initViewModel() {
