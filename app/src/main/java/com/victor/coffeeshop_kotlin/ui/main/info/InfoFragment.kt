@@ -29,7 +29,6 @@ class InfoFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.setUIComponent = UIComponent(false, true)
     }
 
     override fun onCreateView(
@@ -42,6 +41,7 @@ class InfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.setUIComponent = UIComponent(false, true)
 
 
 

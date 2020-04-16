@@ -13,7 +13,7 @@ class FavoriteFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.setUIComponent = UIComponent(false, false)
+
     }
 
     override fun onCreateView(
@@ -26,5 +26,6 @@ class FavoriteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.setUIComponent = UIComponent(false, false)
     }
 }

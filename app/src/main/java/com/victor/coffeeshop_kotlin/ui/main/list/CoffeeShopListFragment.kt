@@ -24,7 +24,8 @@ class CoffeeShopListFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         loadCoffeesShopDatabase()
         setHasOptionsMenu(true)
-        viewModel.setUIComponent = UIComponent(appBar = true, bottomNav = false)
+
+
     }
 
     override fun onCreateView(
@@ -37,11 +38,9 @@ class CoffeeShopListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
+        activity_main_recyclerview.adapter = adapter
+        viewModel.setUIComponent = UIComponent(appBar = true, bottomNav = false)
         setViewModelObservers()
-
     }
 
     private fun setViewModelObservers() {
@@ -60,9 +59,7 @@ class CoffeeShopListFragment : BaseFragment() {
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             val coffeeShop = viewState.coffeeShop
                 ?: throw NullPointerException("CoffeeShop list ViewState value is Null")
-
             adapter.submitList(coffeeShop)
-            activity_main_recyclerview.adapter = adapter
 
         })
 
