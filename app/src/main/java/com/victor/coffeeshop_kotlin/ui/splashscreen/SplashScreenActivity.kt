@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.victor.coffeeshop_kotlin.R
 import com.victor.coffeeshop_kotlin.ui.BaseActivity
 import com.victor.coffeeshop_kotlin.ui.main.MainActivity
@@ -34,6 +35,11 @@ class SplashScreenActivity : BaseActivity() {
         initViewModel()
         loadResultFromCurrentLocation()
         observeViewModel()
+        hideActionBar()
+    }
+
+    private fun hideActionBar() {
+        supportActionBar?.hide()
     }
 
     private fun observeViewModel() {

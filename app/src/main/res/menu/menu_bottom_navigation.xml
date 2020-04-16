@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_coffee_info"
+        android:icon="@drawable/ic_information"
+        android:title="Info" />
+
+    <item
+        android:id="@+id/menu_coffee_location"
+        android:icon="@drawable/ic_location"
+        android:title="Location" />
+
+</menu>

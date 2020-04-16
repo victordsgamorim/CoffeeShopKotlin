@@ -17,7 +17,6 @@ abstract class BaseFragment : DaggerFragment() {
 
     @Inject
     lateinit var factory: ViewModelProviderFactory
-
     lateinit var viewModel: MainViewModel
 
     private val controller by lazy {
@@ -26,7 +25,10 @@ abstract class BaseFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        activity?.run {
+            viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

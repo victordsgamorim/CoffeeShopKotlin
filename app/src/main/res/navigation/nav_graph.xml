@@ -5,9 +5,29 @@
     <fragment
         android:id="@+id/coffeeShopListFragment"
         android:name="com.victor.coffeeshop_kotlin.ui.main.list.CoffeeShopListFragment"
-        android:label="CoffeeShopListFragment" />
+        android:label="CoffeeShopListFragment" >
+        <action
+            android:id="@+id/action_coffeeShopListFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/coffeeShopFavFragment"
-        android:name="com.victor.coffeeshop_kotlin.ui.main.favorite.CoffeeShopFavFragment"
-        android:label="CoffeeShopFavFragment" /><action android:id="@+id/action_global_coffeeShopFavFragment" app:destination="@id/coffeeShopFavFragment"/>
+        android:name="com.victor.coffeeshop_kotlin.ui.main.favorite.FavoriteFragment"
+        android:label="CoffeeShopFavFragment" >
+        <action
+            android:id="@+id/action_coffeeShopFavFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_coffeeShopFavFragment"
+        app:destination="@id/coffeeShopFavFragment" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.victor.coffeeshop_kotlin.ui.main.info.InfoFragment"
+        android:label="InfoFragment" >
+        <argument
+            android:name="coffeeId"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_coffeeShopListFragment" app:destination="@id/coffeeShopListFragment" />
 </navigation>
