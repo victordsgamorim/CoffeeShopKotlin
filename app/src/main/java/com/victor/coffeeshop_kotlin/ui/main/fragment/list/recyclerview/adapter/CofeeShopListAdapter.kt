@@ -1,4 +1,4 @@
-package com.victor.coffeeshop_kotlin.ui.main.list.recyclerview.adapter
+package com.victor.coffeeshop_kotlin.ui.main.fragment.list.recyclerview.adapter
 
 import android.util.Log
 import android.view.LayoutInflater

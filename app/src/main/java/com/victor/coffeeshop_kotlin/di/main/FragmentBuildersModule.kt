@@ -1,8 +1,9 @@
 package com.victor.coffeeshop_kotlin.di.main
 
-import com.victor.coffeeshop_kotlin.ui.main.favorite.FavoriteFragment
-import com.victor.coffeeshop_kotlin.ui.main.info.InfoFragment
-import com.victor.coffeeshop_kotlin.ui.main.list.CoffeeShopListFragment
+import com.victor.coffeeshop_kotlin.ui.main.fragment.favorite.FavoriteFragment
+import com.victor.coffeeshop_kotlin.ui.main.fragment.info.InfoFragment
+import com.victor.coffeeshop_kotlin.ui.main.fragment.list.CoffeeShopListFragment
+import com.victor.coffeeshop_kotlin.ui.main.fragment.map.LocationMapFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -16,6 +17,9 @@ abstract class FragmentBuildersModule {
     abstract fun contributeFavoriteFragment(): FavoriteFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeInforFragment(): InfoFragment
+    abstract fun contributeInfoFragment(): InfoFragment
+
+    @ContributesAndroidInjector
+    abstract fun contribuiteLocationMapFragment(): LocationMapFragment
 
 }

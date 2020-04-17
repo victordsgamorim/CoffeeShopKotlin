@@ -4,30 +4,28 @@
     app:startDestination="@id/coffeeShopListFragment">
     <fragment
         android:id="@+id/coffeeShopListFragment"
-        android:name="com.victor.coffeeshop_kotlin.ui.main.list.CoffeeShopListFragment"
-        android:label="CoffeeShopListFragment" >
+        android:name="com.victor.coffeeshop_kotlin.ui.main.fragment.list.CoffeeShopListFragment"
+        android:label="Coffee Shop">
         <action
             android:id="@+id/action_coffeeShopListFragment_to_infoFragment"
-            app:destination="@id/infoFragment" />
+            app:destination="@id/fragment_info" />
     </fragment>
     <fragment
         android:id="@+id/coffeeShopFavFragment"
-        android:name="com.victor.coffeeshop_kotlin.ui.main.favorite.FavoriteFragment"
-        android:label="CoffeeShopFavFragment" >
+        android:name="com.victor.coffeeshop_kotlin.ui.main.fragment.favorite.FavoriteFragment"
+        android:label="Favorite">
         <action
             android:id="@+id/action_coffeeShopFavFragment_to_infoFragment"
-            app:destination="@id/infoFragment" />
+            app:destination="@id/fragment_info" />
     </fragment>
     <action
         android:id="@+id/action_global_coffeeShopFavFragment"
         app:destination="@id/coffeeShopFavFragment" />
     <fragment
-        android:id="@+id/infoFragment"
-        android:name="com.victor.coffeeshop_kotlin.ui.main.info.InfoFragment"
-        android:label="InfoFragment" >
-        <argument
-            android:name="coffeeId"
-            app:argType="string" />
-    </fragment>
+        android:id="@+id/fragment_info"
+        android:name="com.victor.coffeeshop_kotlin.ui.main.fragment.info.InfoFragment"/>
     <action android:id="@+id/action_global_coffeeShopListFragment" app:destination="@id/coffeeShopListFragment" />
+    <fragment
+        android:id="@+id/fragment_location_map"
+        android:name="com.victor.coffeeshop_kotlin.ui.main.fragment.map.LocationMapFragment" />
 </navigation>

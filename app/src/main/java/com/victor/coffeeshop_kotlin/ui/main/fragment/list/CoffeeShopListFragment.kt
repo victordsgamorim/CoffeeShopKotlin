@@ -1,7 +1,6 @@
-package com.victor.coffeeshop_kotlin.ui.main.list
+package com.victor.coffeeshop_kotlin.ui.main.fragment.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.victor.coffeeshop_kotlin.R
 import com.victor.coffeeshop_kotlin.ui.BaseFragment
 import com.victor.coffeeshop_kotlin.ui.main.UIComponent
-import com.victor.coffeeshop_kotlin.ui.main.list.recyclerview.adapter.CoffeeShopListAdapter
-import com.victor.coffeeshop_kotlin.ui.main.list.state.MainStateEvent.LoadCoffeeShopDatabase
+import com.victor.coffeeshop_kotlin.ui.main.fragment.list.recyclerview.adapter.CoffeeShopListAdapter
+import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent.AddIdToSharedPreference
+import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent.LoadCoffeeShopDatabase
 import kotlinx.android.synthetic.main.fragment_coffee_shop_list.*
 import javax.inject.Inject
 
@@ -64,8 +64,9 @@ class CoffeeShopListFragment : BaseFragment() {
         })
 
         adapter.onItemClick = { coffee ->
+            viewModel.setStateEvent(AddIdToSharedPreference(coffee.id))
             val direction =
-                CoffeeShopListFragmentDirections.actionCoffeeShopListFragmentToInfoFragment(coffee.id)
+                CoffeeShopListFragmentDirections.actionCoffeeShopListFragmentToInfoFragment()
             findNavController().navigate(direction)
         }
     }

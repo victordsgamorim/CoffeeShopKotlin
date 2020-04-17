@@ -5,19 +5,19 @@ import androidx.lifecycle.LiveData
 import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
 import com.victor.coffeeshop_kotlin.session.SessionManager
 import com.victor.coffeeshop_kotlin.ui.DataState
-import com.victor.coffeeshop_kotlin.ui.main.list.state.MainViewState
+import com.victor.coffeeshop_kotlin.ui.main.state.MainViewState
 import com.victor.coffeeshop_kotlin.util.AbsentLiveData
 import com.victor.coffeeshop_kotlin.util.ApiSuccessResponse
+import com.victor.coffeeshop_kotlin.util.COFFEE_SHOP_ID_KEY
 import com.victor.coffeeshop_kotlin.util.GenericApiResponse
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
     private val coffeeDao: CoffeeDao,
     private val sessionManager: SessionManager,
-    private val pref: SharedPreferences
+    private val pref: SharedPreferences,
+    private val prefEditor: SharedPreferences.Editor
 ) {
 
     private var repositoryJob: Job? = null
@@ -47,14 +47,11 @@ class MainRepository @Inject constructor(
                 // busca lista do banco de dados
                 val list = coffeeDao.getList()
 
-
-                withContext(Main) {
-                    onCompleteReturn(
-                        dataState = DataState.data(
-                            data = MainViewState(coffeeShop = list)
-                        )
+                onCompleteReturn(
+                    dataState = DataState.data(
+                        data = MainViewState(coffeeShop = list)
                     )
-                }
+                )
 
             }
 
@@ -63,5 +60,45 @@ class MainRepository @Inject constructor(
 
     fun cancelJob() {
         repositoryJob?.cancel()
+    }
+
+    private fun coffeeShopId() = pref.getString(COFFEE_SHOP_ID_KEY, null)
+
+    fun searchCoffeeShop(id: String): LiveData<DataState<MainViewState>> {
+        val coffeeID = coffeeShopId()
+        return object : NetworkBoundResource<Void, MainViewState>(true, false) {
+            override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Void>) {
+                //do nothing
+            }
+
+            override fun call(): LiveData<GenericApiResponse<Void>> {
+                return AbsentLiveData.create()
+            }
+
+            override fun setJob(job: Job) {
+                cancelJob()
+                repositoryJob = job
+            }
+
+            override suspend fun loadCachedData() {
+
+                coffeeID?.let { id ->
+                    val coffee = coffeeDao.getCoffee(id)
+
+                    onCompleteReturn(
+                        dataState = DataState.data(
+                            data = MainViewState(coffee = coffee)
+                        )
+                    )
+                }
+                    ?: onErrorReturn(
+                        message = "Shared Preferences Coffee Id is null",
+                        useToast = true
+                    )
+
+
+            }
+
+        }.asLiveData
     }
 }

@@ -6,6 +6,7 @@ const val PLACE_API_GET_TEST =
 const val COFFEE_SHOP_PLACES_DATABASE_NAME = "coffee_shop_db"
 const val SHARED_PREFERENCES_NAME = "com.victor.coffeeshop_kotlin.LOCATION"
 const val CURRENT_LOCATION_SHARED_PREF_KEY = "CURRENT_LOCATION"
+const val COFFEE_SHOP_ID_KEY = "coffee_shop_id"
 
 object PlaceParameters {
     const val PLACE_RADIUS = 50f

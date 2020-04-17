@@ -1,4 +1,4 @@
-package com.victor.coffeeshop_kotlin.ui.main.favorite
+package com.victor.coffeeshop_kotlin.ui.main.fragment.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater

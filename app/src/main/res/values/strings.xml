@@ -2,4 +2,6 @@
     <string name="app_name">CoffeeShop - Kotlin</string>
     <string name="coffee_shop_desc">Coffee Shop Image</string>
     <string name="title_activity_maps">Map</string>
+    <string name="bot_nav_info">Info</string>
+    <string name="bot_nav_location">Location</string>
 </resources>

@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
 import com.victor.coffeeshop_kotlin.repository.MainRepository
 import com.victor.coffeeshop_kotlin.session.SessionManager
-import com.victor.coffeeshop_kotlin.ui.main.list.recyclerview.adapter.CoffeeShopListAdapter
+import com.victor.coffeeshop_kotlin.ui.main.fragment.list.recyclerview.adapter.CoffeeShopListAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -16,9 +16,10 @@ class MainModule {
     fun provideMainRepository(
         coffeeDao: CoffeeDao,
         sessionManager: SessionManager,
-        pref: SharedPreferences
+        pref: SharedPreferences,
+        prefEditor: SharedPreferences.Editor
     ): MainRepository {
-        return MainRepository(coffeeDao, sessionManager, pref)
+        return MainRepository(coffeeDao, sessionManager, pref, prefEditor)
     }
 
     @MainScope
@@ -26,7 +27,6 @@ class MainModule {
     fun provideCoffeeShopListAdapter(): CoffeeShopListAdapter {
         return CoffeeShopListAdapter()
     }
-
 
 
 }

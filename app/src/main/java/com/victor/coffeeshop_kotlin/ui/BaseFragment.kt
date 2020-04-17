@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.victor.coffeeshop_kotlin.NavGraphDirections
 import com.victor.coffeeshop_kotlin.R
+import com.victor.coffeeshop_kotlin.model.domain.Coffee
 import com.victor.coffeeshop_kotlin.ui.main.MainViewModel
 import com.victor.coffeeshop_kotlin.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
@@ -19,16 +21,17 @@ abstract class BaseFragment : DaggerFragment() {
     lateinit var factory: ViewModelProviderFactory
     lateinit var viewModel: MainViewModel
 
+    protected val fragmentActivity by lazy {
+        activity?.run { this } ?: throw IllegalArgumentException("Invalid Activity")
+    }
+
     private val controller by lazy {
         findNavController()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.run {
-            viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
-        }
-
+        viewModel = ViewModelProvider(fragmentActivity, factory).get(MainViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

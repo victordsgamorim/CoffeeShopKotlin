@@ -1,7 +1,6 @@
 package com.victor.coffeeshop_kotlin.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -52,11 +51,6 @@ class MainActivity : BaseActivity() {
                 }
             })
         }
-
-
-
-
-
 
         activity_main_bottom_navigation.setupWithNavController(controller)
 
