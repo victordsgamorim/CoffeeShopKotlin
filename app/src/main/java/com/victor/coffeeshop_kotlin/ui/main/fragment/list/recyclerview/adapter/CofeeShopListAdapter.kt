@@ -2,22 +2,20 @@ package com.victor.coffeeshop_kotlin.ui.main.fragment.list.recyclerview.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.victor.coffeeshop_kotlin.R
+import com.victor.coffeeshop_kotlin.databinding.CardviewItemsBinding
 import com.victor.coffeeshop_kotlin.model.domain.Coffee
-import kotlinx.android.synthetic.main.cardview_items.view.*
 
 class CoffeeShopListAdapter(var onItemClick: (Coffee) -> Unit = {}) :
     ListAdapter<Coffee, CoffeeShopListAdapter.ViewHolder>(DiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.cardview_items, parent, false)
-        return ViewHolder(view)
+        val viewBinding = CardviewItemsBinding.inflate(inflater, parent, false)
+        return ViewHolder(viewBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -27,7 +25,8 @@ class CoffeeShopListAdapter(var onItemClick: (Coffee) -> Unit = {}) :
         holder.bindInformation(coffee)
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(private val binding: CardviewItemsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         lateinit var coffee: Coffee
 
@@ -42,8 +41,7 @@ class CoffeeShopListAdapter(var onItemClick: (Coffee) -> Unit = {}) :
 
         fun bindInformation(coffee: Coffee) {
             this.coffee = coffee
-            itemView.coffeeshop_cardview_item_title.text = coffee.name
-            itemView.coffeeshop_cardview_score.text = coffee.rating.toString()
+            binding.coffeeShop = coffee
         }
 
 

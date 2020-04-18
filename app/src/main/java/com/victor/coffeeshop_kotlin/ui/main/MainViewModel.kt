@@ -7,7 +7,7 @@ import com.victor.coffeeshop_kotlin.repository.MainRepository
 import com.victor.coffeeshop_kotlin.ui.BaseViewModel
 import com.victor.coffeeshop_kotlin.ui.DataState
 import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent
-import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent.AddIdToSharedPreference
+import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent.AddCoffeeIDEvent
 import com.victor.coffeeshop_kotlin.ui.main.state.MainStateEvent.LoadCoffeeShopDatabase
 import com.victor.coffeeshop_kotlin.ui.main.state.MainViewState
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
             LoadCoffeeShopDatabase -> {
                 repository.loadCoffeeShopDataBase()
             }
-            is AddIdToSharedPreference -> {
+            is AddCoffeeIDEvent -> {
                 repository.searchCoffeeShop(state.id)
             }
         }
@@ -65,11 +65,8 @@ class MainViewModel @Inject constructor(
 
     fun setCoffeeShop(coffee: Coffee) {
         var update = getCurrentViewState()
-
         if (update.coffee == coffee) return
-
         update.coffee = coffee
-
         _viewState.value = update
     }
 

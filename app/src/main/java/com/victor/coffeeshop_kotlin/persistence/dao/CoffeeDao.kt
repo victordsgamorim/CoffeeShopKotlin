@@ -16,6 +16,6 @@ interface CoffeeDao {
     suspend fun getList(): List<Coffee>
 
     @Query("SELECT * FROM Coffee WHERE id = :id")
-    suspend fun getCoffee(id: String): Coffee
+    suspend fun getCoffee(id: String): Coffee?
 
 }

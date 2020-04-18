@@ -1,6 +1,7 @@
 package com.victor.coffeeshop_kotlin.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.victor.coffeeshop_kotlin.persistence.dao.CoffeeDao
 import com.victor.coffeeshop_kotlin.session.SessionManager
@@ -62,10 +63,7 @@ class MainRepository @Inject constructor(
         repositoryJob?.cancel()
     }
 
-    private fun coffeeShopId() = pref.getString(COFFEE_SHOP_ID_KEY, null)
-
     fun searchCoffeeShop(id: String): LiveData<DataState<MainViewState>> {
-        val coffeeID = coffeeShopId()
         return object : NetworkBoundResource<Void, MainViewState>(true, false) {
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Void>) {
                 //do nothing
@@ -81,22 +79,12 @@ class MainRepository @Inject constructor(
             }
 
             override suspend fun loadCachedData() {
-
-                coffeeID?.let { id ->
-                    val coffee = coffeeDao.getCoffee(id)
-
-                    onCompleteReturn(
-                        dataState = DataState.data(
-                            data = MainViewState(coffee = coffee)
-                        )
+                val coffee = coffeeDao.getCoffee(id)
+                onCompleteReturn(
+                    dataState = DataState.data(
+                        data = MainViewState(coffee = coffee)
                     )
-                }
-                    ?: onErrorReturn(
-                        message = "Shared Preferences Coffee Id is null",
-                        useToast = true
-                    )
-
-
+                )
             }
 
         }.asLiveData

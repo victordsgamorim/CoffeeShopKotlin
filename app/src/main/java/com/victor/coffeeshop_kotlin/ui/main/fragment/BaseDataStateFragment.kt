@@ -1,16 +1,14 @@
 package com.victor.coffeeshop_kotlin.ui.main.fragment
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
-import com.victor.coffeeshop_kotlin.model.domain.Coffee
 import com.victor.coffeeshop_kotlin.ui.BaseFragment
 
-abstract class BaseInfoFragment : BaseFragment() {
+abstract class BaseDataStateFragment : BaseFragment() {
 
-    protected lateinit var coffee: Coffee
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setDataStateObserver()
     }
 

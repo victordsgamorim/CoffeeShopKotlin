@@ -1,76 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/coffeeshop_cardview_layout"
+    <data>
+
+        <variable
+            name="coffeeShop"
+            type="com.victor.coffeeshop_kotlin.model.domain.Coffee" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp">
 
-        <ImageView
-            android:id="@+id/coffeeshop_cardview_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coffeeshop_cardview_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/coffee_shop_desc"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/ic_launcher_background" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/coffeeshop_cardview_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/coffee_shop_desc"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_launcher_background" />
 
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/coffeeshop_cardview_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/coffeeshop_cardview_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
 
 
-        <TextView
-            android:id="@+id/coffeeshop_cardview_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@android:drawable/screen_background_dark_transparent"
-            android:padding="8dp"
-            android:textColor="@android:color/white"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/coffeeshop_cardview_guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Name" />
+            <TextView
+                android:id="@+id/coffeeshop_cardview_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@android:drawable/screen_background_dark_transparent"
+                android:padding="8dp"
+                android:textColor="@android:color/white"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/coffeeshop_cardview_guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@{coffeeShop.name}" />
 
-        <View
-            android:id="@+id/coffeeshop_cardview_score_bg"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
-            android:background="@drawable/rect_background_coffee_score"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coffeeshop_cardview_guideline" />
-
-
-        <TextView
-            android:id="@+id/coffeeshop_cardview_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/coffeeshop_cardview_score_bg"
-            app:layout_constraintEnd_toEndOf="@id/coffeeshop_cardview_score_bg"
-            app:layout_constraintHorizontal_bias="0.7"
-            app:layout_constraintStart_toStartOf="@id/coffeeshop_cardview_score_bg"
-            app:layout_constraintTop_toTopOf="@id/coffeeshop_cardview_score_bg"
-            tools:text="5.5" />
+            <View
+                android:id="@+id/coffeeshop_cardview_score_bg"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rect_background_coffee_score"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coffeeshop_cardview_guideline" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/coffeeshop_cardview_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/coffeeshop_cardview_score_bg"
+                app:layout_constraintEnd_toEndOf="@id/coffeeshop_cardview_score_bg"
+                app:layout_constraintHorizontal_bias="0.7"
+                app:layout_constraintStart_toStartOf="@id/coffeeshop_cardview_score_bg"
+                app:layout_constraintTop_toTopOf="@id/coffeeshop_cardview_score_bg"
+                tools:text="@{Double.toString(coffeeShop.rating)}" />
 
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

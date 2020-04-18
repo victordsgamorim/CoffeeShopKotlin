@@ -35,7 +35,7 @@ abstract class NetworkBoundResource<Response, ViewState>
                 onErrorReturn("Network is not available", useToast = true)
             }
         } else {
-            coroutineScope.launch {
+            GlobalScope.launch(IO) {
                 loadCachedData()
             }
         }

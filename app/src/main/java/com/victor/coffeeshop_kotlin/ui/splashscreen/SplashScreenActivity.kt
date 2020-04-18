@@ -35,11 +35,6 @@ class SplashScreenActivity : BaseActivity() {
         initViewModel()
         loadResultFromCurrentLocation()
         observeViewModel()
-        hideActionBar()
-    }
-
-    private fun hideActionBar() {
-        supportActionBar?.hide()
     }
 
     private fun observeViewModel() {
